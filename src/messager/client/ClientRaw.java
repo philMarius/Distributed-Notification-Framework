@@ -1,15 +1,12 @@
-package client;
+package messager.client;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Created by Philip on 08/12/2016.
  */
-public class Client extends JFrame {
+public class ClientRaw extends JFrame {
 	
 	private LoginWindow loginWindow;
 	
@@ -17,11 +14,19 @@ public class Client extends JFrame {
 	private JButton refreshButton;
 	private JList listOfUsers;
 	private JScrollPane listOfUsersTextArea;
+	private JTabbedPane chatTabs;
+	private JEditorPane chatLog;
+	private JTextField chatTextField;
+	private JSplitPane chatSplitPane;
+	private JButton chatSendButton;
+	private JPanel chatSendPanel;
+	private JPanel chatWindow;
 	
-	public Client() {
+	public ClientRaw() {
 		super("Client Chat Window");
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.setPreferredSize(new Dimension(1000, 800));
+		this.setMinimumSize(new Dimension(1000, 1000));
 		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -30,7 +35,7 @@ public class Client extends JFrame {
 		}
 		
 		listOfUsersPanel = new JPanel(new BorderLayout());
-		chatPanel = new JPanel();
+		chatPanel = new JPanel(new GridBagLayout());
 		programLogPanel = new JPanel();
 		
 		loginWindow = new LoginWindow(this);
@@ -43,6 +48,9 @@ public class Client extends JFrame {
 		
 		GridBagConstraints g = new GridBagConstraints();
 		
+		this.initListOfUsersPanel();
+		this.initChatPanel();
+		
 		g.gridx = 0;
 		contentPanel.add(listOfUsersPanel, g);
 		
@@ -51,8 +59,6 @@ public class Client extends JFrame {
 		
 		g.gridx += 1;
 		contentPanel.add(programLogPanel);
-		
-		this.initListOfUsersPanel();
 		
 		this.setVisible(true);
 	}
@@ -70,14 +76,82 @@ public class Client extends JFrame {
 		placeholder.setVisibleRowCount(-1);
 		
 		this.listOfUsersTextArea = new JScrollPane(placeholder);
+		listOfUsersTextArea.setPreferredSize(new Dimension(200, this.getHeight()));
+		listOfUsersPanel.setMinimumSize(new Dimension(200, this.getHeight()));
+		
+		listOfUsersPanel.add(refreshButton, BorderLayout.NORTH);
+		listOfUsersPanel.add(listOfUsersTextArea, BorderLayout.CENTER);
 	}
+	
+	private void initChatPanel() {
+//		this.chatPanel.setMinimumSize(new Dimension(500, this.getHeight()));
+//		this.chatTabs = new JTabbedPane();
+//		this.chatTabs.setMinimumSize(new Dimension(500, this.getHeight()));
+//
+//		this.chatWindow = new JPanel(new GridBagLayout());
+//		GridBagConstraints cwgbc = new GridBagConstraints();
+//		cwgbc.fill = GridBagConstraints.BOTH;
+//		cwgbc.gridx = 0;
+//		cwgbc.gridy = 0;
+//
+//		this.chatLog = new JEditorPane();
+//		this.chatLog.setEditable(false);
+//		this.chatLog.setMinimumSize(new Dimension(500, 500));
+//
+//		this.chatSendPanel = new JPanel();
+//		this.chatTextField = new JTextField();
+//		this.chatSendButton = new JButton("Send");
+//		chatPanel.add(chatTextField);
+//		chatPanel.add(chatSendButton);
+//
+//		this.chatSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+//		this.chatSplitPane.setTopComponent(this.chatLog);
+//		this.chatSplitPane.setBottomComponent(this.chatPanel);
+//		this.chatWindow.add(this.chatSplitPane, cwgbc);
+//		this.chatTabs.addTab("Server", this.chatWindow);
+		
+		this.chatPanel.setMinimumSize(new Dimension(500, this.getHeight()));
+		GridBagConstraints gbcChatPanel = new GridBagConstraints();
+		gbcChatPanel.fill = GridBagConstraints.BOTH;
+		gbcChatPanel.gridx = 0;
+		gbcChatPanel.gridy = 0;
+		
+		this.chatTabs = new JTabbedPane();
+		this.chatTabs.setMinimumSize(new Dimension(500, this.getHeight()));
+		
+		this.chatWindow = new JPanel(new GridBagLayout());
+		GridBagConstraints gbcChatWindow = new GridBagConstraints();
+		gbcChatWindow.fill = GridBagConstraints.BOTH;
+		gbcChatWindow.gridx = 0;
+		gbcChatWindow.gridy = 0;
+		
+		this.chatSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+		this.chatLog = new JEditorPane();
+		
+		this.chatSendPanel = new JPanel(new GridBagLayout());
+		GridBagConstraints gbcChatSendPanel = new GridBagConstraints();
+		gbcChatSendPanel.fill = GridBagConstraints.HORIZONTAL;
+		gbcChatSendPanel.gridx = 0;
+		gbcChatSendPanel.gridy = 0;
+		
+		this.chatTextField = new JTextField();
+		this.chatSendButton = new JButton("Send");
+		
+		this.chatSendPanel.add(chatTextField, gbcChatSendPanel);
+		gbcChatSendPanel.gridx += 1;
+		this.chatSendPanel.add(chatSendButton, gbcChatSendPanel);
+		
+		this.chatWindow.add(this.chatSplitPane, gbcChatWindow);
+		this.chatPanel.add(this.chatWindow, gbcChatPanel);
+	}
+	
 }
 
 class LoginWindow extends JFrame {
 	
 	private JPanel loginPanel;
 	private JPanel registerPanel;
-	private Client client;
+	private ClientRaw client;
 	private JLabel loginLabel, passwordLabel, registerIDLabel, registerPasswordLabel;
 	private JButton loginButton;
 	private JTextField loginField, registerIDTextField;
@@ -85,7 +159,7 @@ class LoginWindow extends JFrame {
 	private JButton submitButton;
 	private JButton bypass = new JButton("Bypass");
 	
-	public LoginWindow(Client client) throws HeadlessException {
+	public LoginWindow(ClientRaw client) throws HeadlessException {
 		super("Login Window");
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.setMinimumSize(new Dimension(600, 200));

@@ -1,4 +1,4 @@
-package client;
+package messager.client;
 
 /**
  * Created by Philip on 08/12/2016.
