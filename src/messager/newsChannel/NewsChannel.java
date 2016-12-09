@@ -8,4 +8,13 @@ import java.util.ArrayList;
 public class NewsChannel {
 	
 	private ArrayList<Article> articleList;
+	private String name;
+	
+	public NewsChannel(String name) {
+		this.name = name;
+	}
+	
+	public void addArticle(Article article) {
+		articleList.add(article);
+	}
 }
