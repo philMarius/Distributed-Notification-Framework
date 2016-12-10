@@ -1,5 +1,6 @@
-package messager.notification;
+package newsOutlet.notification;
 
+import java.rmi.Naming;
 import java.util.ArrayList;
 
 /**
@@ -14,6 +15,6 @@ public class NotificationSink {
 	}
 	
 	public void receiveNotification() {
-		
+//		Notifiable notification = (Notifiable) Naming.lookup()
 	}
 }

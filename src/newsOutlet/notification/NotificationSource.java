@@ -1,4 +1,4 @@
-package messager.notification;
+package newsOutlet.notification;
 
 import java.util.ArrayList;
 

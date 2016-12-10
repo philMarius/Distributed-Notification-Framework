@@ -1,12 +1,35 @@
 package scripts;
 
-import java.rmi.Remote;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.Date;
+import java.util.Scanner;
 
 /**
- * Created by Philip on 09/12/2016.
+ * Created by Philip on 10/12/2016.
  */
-public interface HelloTest extends Remote {
+public class HelloTest extends UnicastRemoteObject implements HelloTestInterface {
 	
-	String sayHello() throws RemoteException;
+	protected HelloTest() throws RemoteException {
+		super();
+	}
+	
+	@Override
+	public String sayHello() throws RemoteException {
+		String whoami = "unknown";
+		try {
+			whoami = InetAddress.getLocalHost().getHostName();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+		return "Hello World from " + whoami;
+	}
+	
+	@Override
+	public long getTime() throws RemoteException {
+		long time = new Date().getTime();
+		return time;
+	}
 }

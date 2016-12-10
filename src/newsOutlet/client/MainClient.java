@@ -1,4 +1,4 @@
-package messager.client;
+package newsOutlet.client;
 
 /**
  * Created by Philip on 08/12/2016.

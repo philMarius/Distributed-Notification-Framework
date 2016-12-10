@@ -1,4 +1,4 @@
-package messager.server;
+package newsOutlet.server;
 
 /**
  * Created by Philip on 09/12/2016.
@@ -6,6 +6,6 @@ package messager.server;
 public class MainServer {
 	
 	public static void main(String[] args) {
-		Server s = new Server();
+//		Server s = new Server();
 	}
 }

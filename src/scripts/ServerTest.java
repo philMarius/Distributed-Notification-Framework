@@ -1,33 +1,41 @@
 package scripts;
 
-import java.rmi.AlreadyBoundException;
+import newsOutlet.newsChannel.Article;
+import newsOutlet.newsChannel.NewsChannel;
+import newsOutlet.notification.Notification;
+
+import java.net.MalformedURLException;
+import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
+import java.util.Date;
 
 /**
  * Created by Philip on 09/12/2016.
  */
-public class ServerTest implements HelloTest {
-	
-	@Override
-	public String sayHello() throws RemoteException {
-		return "Hello World!";
-	}
+public class ServerTest {
 	
 	public static void main(String[] args) {
 		
 		try {
-			ServerTest server = new ServerTest();
-			HelloTest stub = (HelloTest) UnicastRemoteObject.exportObject(server, 0);
+			Registry registry = LocateRegistry.createRegistry(1099);
+//			HelloTest hello = new HelloTest();
+//
+//			Naming.rebind("hello", hello);
+//
+//			HelloTest hello2 = new HelloTest();
+//
+//			Naming.rebind("hello2", hello2);
 			
-			Registry registry = LocateRegistry.getRegistry();
-			registry.bind("Hello", stub);
+			NewsChannel bbc = new NewsChannel("BBC");
 			
-			System.err.println("Server ready");
+			Notification notification = new Notification(bbc);
 			
-		} catch (RemoteException | AlreadyBoundException e) {
+			Naming.rebind("bbc", notification);
+			
+			System.out.println("Server Ready");
+		} catch (RemoteException | MalformedURLException e) {
 			e.printStackTrace();
 		}
 	}

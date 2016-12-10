@@ -1,4 +1,4 @@
-package messager.newsChannel;
+package newsOutlet.newsChannel;
 
 import java.util.Date;
 

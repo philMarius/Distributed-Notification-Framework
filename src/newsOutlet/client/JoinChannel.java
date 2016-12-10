@@ -1,4 +1,4 @@
-package messager.client;
+package newsOutlet.client;
 
 import javax.swing.*;
 import java.awt.*;
