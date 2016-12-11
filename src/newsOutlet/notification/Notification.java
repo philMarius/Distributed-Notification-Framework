@@ -2,28 +2,22 @@ package newsOutlet.notification;
 
 import newsOutlet.newsChannel.NewsChannel;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
  * Created by Philip on 09/12/2016.
  */
-public class Notification extends UnicastRemoteObject implements Notifiable {
+public class Notification implements Serializable {
 	
 	private NewsChannel newsChannel;
 	
-	public Notification(NewsChannel newsChannel) throws RemoteException {
-		super();
+	public Notification(NewsChannel newsChannel) {
 		this.newsChannel = newsChannel;
 	}
 	
-	@Override
-	public NewsChannel updateNews() throws RemoteException {
+	public NewsChannel getNewsChannel() {
 		return newsChannel;
-	}
-	
-	@Override
-	public String testConnection() throws RemoteException {
-		return "Test Successful";
 	}
 }

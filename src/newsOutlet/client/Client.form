@@ -123,6 +123,12 @@
               <text value="Add Article to &quot;BBC&quot;"/>
             </properties>
           </component>
+          <component id="864a7" class="javax.swing.JButton" binding="connectToBBCTestButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <text value="Connect to BBC Test"/>
+            </properties>
+          </component>
         </children>
       </toolbar>
     </children>

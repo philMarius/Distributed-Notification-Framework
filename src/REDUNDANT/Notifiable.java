@@ -1,4 +1,4 @@
-package newsOutlet.notification;
+package REDUNDANT;
 
 import newsOutlet.newsChannel.NewsChannel;
 
@@ -12,5 +12,4 @@ public interface Notifiable extends Remote {
 	
 	public NewsChannel updateNews() throws RemoteException;
 	
-	public String testConnection() throws RemoteException;
 }

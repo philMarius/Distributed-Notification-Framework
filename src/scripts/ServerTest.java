@@ -32,10 +32,10 @@ public class ServerTest {
 			
 			Notification notification = new Notification(bbc);
 			
-			Naming.rebind("bbc", notification);
+//			Naming.rebind("bbc", notification);
 			
 			System.out.println("Server Ready");
-		} catch (RemoteException | MalformedURLException e) {
+		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 	}
