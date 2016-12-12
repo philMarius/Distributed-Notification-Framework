@@ -1,5 +1,6 @@
 package newsOutlet.notification;
 
+import newsOutlet.newsChannel.Article;
 import newsOutlet.newsChannel.NewsChannel;
 
 import java.io.Serializable;
@@ -11,13 +12,13 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class Notification implements Serializable {
 	
-	private NewsChannel newsChannel;
+	private Article article;
 	
-	public Notification(NewsChannel newsChannel) {
-		this.newsChannel = newsChannel;
+	public Notification(Article article) {
+		this.article = article;
 	}
 	
-	public NewsChannel getNewsChannel() {
-		return newsChannel;
+	public Article getArticle() {
+		return article;
 	}
 }

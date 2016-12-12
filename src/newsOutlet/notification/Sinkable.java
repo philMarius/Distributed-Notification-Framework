@@ -9,7 +9,7 @@ import java.rmi.RemoteException;
  * Created by Philip on 11/12/2016.
  */
 public interface Sinkable extends Remote {
-	
+
 	boolean subscribe(String channelName) throws RemoteException, MalformedURLException, NotBoundException;
 	
 	void unsubscribe(String channelName) throws RemoteException;

@@ -1,7 +1,5 @@
 package newsOutlet.notification;
 
-import newsOutlet.newsChannel.NewsChannel;
-
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -16,13 +14,13 @@ public class NotificationSink extends UnicastRemoteObject implements Sinkable {
 	
 	private Set<Sourcable> sourceSet;
 	private String channelToGet;
-	private Queue<NewsChannel> channelList;
+	private Notifiable notifiable;
 	
-	public NotificationSink() throws RemoteException {
+	public NotificationSink(Notifiable notifiable) throws RemoteException {
 		super();
+		this.notifiable = notifiable;
 		this.sourceSet = new HashSet<>();
 		this.channelToGet = "rmi://localhost/";
-		this.channelList = new LinkedList<>();
 	}
 	
 	/**
@@ -33,12 +31,12 @@ public class NotificationSink extends UnicastRemoteObject implements Sinkable {
 	@Override
 	public void updateNews(Notification notification) {
 		System.out.println("[SNK] Update received");
-		channelList.add(notification.getNewsChannel());
+		notifiable.receiveNotification(notification.getArticle());
 	}
 	
 	@Override
 	public void exit() throws RemoteException {
-		System.out.println("[SNK] Unsubscibing from all sources");
+		System.out.println("[SNK] Unsubscribing from all sources");
 		for (Sourcable s : sourceSet) {
 			s.deregisterSink(this);
 		}

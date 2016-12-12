@@ -1,14 +1,10 @@
 package newsOutlet.server;
 
 import newsOutlet.newsChannel.Article;
-import newsOutlet.newsChannel.NewsChannel;
 import newsOutlet.notification.Notification;
 import newsOutlet.notification.NotificationSource;
 
-import java.net.MalformedURLException;
-import java.rmi.Naming;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Date;
 import java.util.Scanner;
@@ -18,26 +14,29 @@ import java.util.Scanner;
  */
 public class Server {
 	
-	private NewsChannel newsChannel;
+//	private NewsChannel newsChannel;
 	private NotificationSource source;
 	private Registry registry;
-	private String name;
+	private String channelName;
 	
-	public Server(String name) {
-		this.newsChannel = new NewsChannel(name);
-		this.name = name;
+	public Server(String channelName) {
+//		this.newsChannel = new NewsChannel(channelName);
+		this.channelName = channelName;
 		
 		try {
-			source = new NotificationSource("bbc");
+			source = new NotificationSource(channelName);
 //			registry = LocateRegistry.createRegistry(1099);
+			System.out.println("Creating new news channel: " + channelName);
 			System.out.println("Server ready");
-			
+			while (true) {
+				this.addArticle();
+			}
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void addArticle(Article article) {
+	public void addArticle() {
 		Scanner s = new Scanner(System.in);
 		
 		System.out.println("Article Title:");
@@ -51,9 +50,15 @@ public class Server {
 		
 		Date now = new Date();
 		
-		Article newArticle = new Article(author, title, body, now);
+		Article newArticle = new Article(this.channelName, author, title, body, now);
 		
-		newsChannel.addArticle(newArticle);
+		try {
+			source.broadcastNotification(new Notification(newArticle));
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+
+//		newsChannel.addArticle(newArticle);
 	}
 	
 	public static void main(String[] args) {

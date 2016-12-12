@@ -9,6 +9,7 @@ import java.util.Date;
  */
 public class Article implements Serializable {
 	
+	private String channel;
 	private String author;
 	private String title;
 	private String body;
@@ -16,11 +17,16 @@ public class Article implements Serializable {
 	
 	private ArrayList<Comment> commentSection;
 	
-	public Article(String author, String title, String body, Date date) {
+	public Article(String channel, String author, String title, String body, Date date) {
+		this.channel = channel;
 		this.author = author;
 		this.title = title;
 		this.body = body;
 		this.date = date;
+	}
+	
+	public String getChannel() {
+		return channel;
 	}
 	
 	public String getAuthor() {

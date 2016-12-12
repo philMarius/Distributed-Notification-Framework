@@ -55,34 +55,19 @@
             </properties>
             <border type="none"/>
             <children>
-              <tabbedpane id="c1e95" binding="channelTabs">
+              <scrollpane id="7755e" binding="articleListSrollPane">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <grid id="3a398" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                    <margin top="0" left="0" bottom="0" right="0"/>
-                    <constraints>
-                      <tabbedpane title="Server"/>
-                    </constraints>
+                  <component id="cb6a0" class="javax.swing.JTable" binding="articleList" custom-create="true">
+                    <constraints/>
                     <properties/>
-                    <border type="none"/>
-                    <children>
-                      <grid id="d4b55" binding="channelPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
-                        <constraints>
-                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties/>
-                        <border type="none"/>
-                        <children/>
-                      </grid>
-                    </children>
-                  </grid>
+                  </component>
                 </children>
-              </tabbedpane>
+              </scrollpane>
             </children>
           </grid>
         </children>
@@ -109,24 +94,6 @@
             <constraints/>
             <properties>
               <text value="Leave Channel"/>
-            </properties>
-          </component>
-          <component id="df529" class="javax.swing.JButton" binding="addChannelButton" default-binding="true">
-            <constraints/>
-            <properties>
-              <text value="Add Channel"/>
-            </properties>
-          </component>
-          <component id="90033" class="javax.swing.JButton" binding="addArticleToBBCButton" default-binding="true">
-            <constraints/>
-            <properties>
-              <text value="Add Article to &quot;BBC&quot;"/>
-            </properties>
-          </component>
-          <component id="864a7" class="javax.swing.JButton" binding="connectToBBCTestButton" default-binding="true">
-            <constraints/>
-            <properties>
-              <text value="Connect to BBC Test"/>
             </properties>
           </component>
         </children>

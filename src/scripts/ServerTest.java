@@ -30,7 +30,7 @@ public class ServerTest {
 			
 			NewsChannel bbc = new NewsChannel("BBC");
 			
-			Notification notification = new Notification(bbc);
+//			Notification notification = new Notification(bbc);
 			
 //			Naming.rebind("bbc", notification);
 			
