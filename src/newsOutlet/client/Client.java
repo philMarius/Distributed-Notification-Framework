@@ -1,5 +1,6 @@
 package newsOutlet.client;
 
+import jdk.nashorn.internal.scripts.JO;
 import newsOutlet.newsChannel.Article;
 import newsOutlet.notification.Notifiable;
 import newsOutlet.notification.NotificationSink;
@@ -13,7 +14,7 @@ import java.awt.event.*;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Created by Philip on 08/12/2016.
@@ -36,6 +37,7 @@ public class Client extends JFrame implements Notifiable {
 	private NotificationSink notificationSink;
 	private DefaultTableModel dtm;
 	private ArrayList<Article> articleList;
+	private String userID;
 	
 	public Client() throws HeadlessException {
 		super("Client Chat Window");
@@ -54,6 +56,21 @@ public class Client extends JFrame implements Notifiable {
 				
 			}
 		});
+		connectedChannelsButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String[] sources = Client.this.notificationSink.getArrayOfSources();
+					if (sources.length == 0) {
+						JOptionPane.showMessageDialog(null, "No open connections.", "Message", JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						ListOfConnections loc = new ListOfConnections(sources);
+					}
+				} catch (RemoteException e1) {
+					JOptionPane.showMessageDialog(null, e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 	}
 	
 	public void init(String userID) {
@@ -61,10 +78,11 @@ public class Client extends JFrame implements Notifiable {
 		this.pack();
 		this.setVisible(true);
 		System.out.println(userID);
+		this.userID = userID;
 		this.articleList = new ArrayList<>();
 		
 		try {
-			notificationSink = new NotificationSink(this);
+			notificationSink = new NotificationSink(this.userID, this);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -90,7 +108,9 @@ public class Client extends JFrame implements Notifiable {
 	}
 	
 	public void displayArticle(Article article) {
-		
+		this.articleViewer.setText(article.getTitle() + "\n");
+		this.articleViewer.append("By: " + article.getAuthor() + "     Date: " + article.getDate().toString() + "\n");
+		this.articleViewer.append(article.getBody());
 	}
 	
 	@Override
@@ -120,12 +140,9 @@ public class Client extends JFrame implements Notifiable {
 		dtm.setColumnIdentifiers(header);
 		this.articleTable.setModel(dtm);
 		
-		this.articleTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				System.out.println(Client.this.articleList.get(Client.this.articleTable.getSelectedRow()));
-			}
-		});
+		this.articleTable.getSelectionModel().addListSelectionListener(e -> Client.this.displayArticle(Client.this.articleList.get(Client.this.articleTable.getSelectedRow())));
 		
+		//Custom article viewing panel creation
+		this.articleViewer = new JTextArea();
 	}
 }

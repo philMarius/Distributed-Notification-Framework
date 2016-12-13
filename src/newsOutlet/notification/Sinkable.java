@@ -17,4 +17,6 @@ public interface Sinkable extends Remote {
 	void updateNews(Notification notification) throws RemoteException;
 	
 	void exit() throws RemoteException;
+	
+	String getName() throws RemoteException;
 }

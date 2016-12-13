@@ -1,5 +1,6 @@
 package newsOutlet.notification;
 
+import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -14,10 +15,12 @@ public class NotificationSink extends UnicastRemoteObject implements Sinkable {
 	
 	private Set<Sourcable> sourceSet;
 	private String channelToGet;
+	private String clientName;
 	private Notifiable notifiable;
 	
-	public NotificationSink(Notifiable notifiable) throws RemoteException {
+	public NotificationSink(String clientName, Notifiable notifiable) throws RemoteException {
 		super();
+		this.clientName = clientName;
 		this.notifiable = notifiable;
 		this.sourceSet = new HashSet<>();
 		this.channelToGet = "rmi://localhost/";
@@ -34,12 +37,28 @@ public class NotificationSink extends UnicastRemoteObject implements Sinkable {
 		notifiable.receiveNotification(notification.getArticle());
 	}
 	
+	/**
+	 * Runs when exiting client, disconnects from all sources
+	 *
+	 * @throws RemoteException
+	 */
 	@Override
 	public void exit() throws RemoteException {
 		System.out.println("[SNK] Unsubscribing from all sources");
 		for (Sourcable s : sourceSet) {
 			s.deregisterSink(this);
 		}
+	}
+	
+	/**
+	 * Get name of the client
+	 *
+	 * @return
+	 * @throws RemoteException
+	 */
+	@Override
+	public String getName() throws RemoteException {
+		return clientName;
 	}
 	
 	/**
@@ -62,7 +81,7 @@ public class NotificationSink extends UnicastRemoteObject implements Sinkable {
 			}
 		}
 		
-		String registryName = this.channelToGet + channelName;
+		String registryName = this.channelToGet + channelName.toLowerCase();
 		Sourcable newSource = (Sourcable) Naming.lookup(registryName);
 		newSource.registerSink(this);
 		sourceSet.add(newSource);
@@ -91,5 +110,29 @@ public class NotificationSink extends UnicastRemoteObject implements Sinkable {
 		for (Sourcable s : removedSinks) {
 			sourceSet.remove(s);
 		}
+	}
+	
+	/**
+	 * Returns a straight array of all the source names for the listing of connections
+	 *
+	 * @return String[] of source names
+	 * @throws RemoteException
+	 */
+	public String[] getArrayOfSources() throws RemoteException {
+		ArrayList<String> arrayListOfSources = new ArrayList<>();
+		for (Sourcable s : sourceSet) {
+			arrayListOfSources.add(s.getName());
+		}
+		String[] arrayOfSources = new String[arrayListOfSources.size()];
+		return arrayListOfSources.toArray(arrayOfSources);
+	}
+	
+	/**
+	 * Get the sink name
+	 *
+	 * @return sink name
+	 */
+	public Set<Sourcable> getSourceSet() {
+		return sourceSet;
 	}
 }

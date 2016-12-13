@@ -50,11 +50,11 @@ public class JoinChannel extends JFrame {
 		if (userChannelInput.getText().length() >= 0) {
 			try {
 				JoinChannel.this.client.connectToChannel(userChannelInput.getText());
-				
+				this.dispose();
+				System.out.println("[CLI] Connection Successful!");
 			} catch (RemoteException | MalformedURLException | NotBoundException e1) {
 				JOptionPane.showMessageDialog(null, e1.toString(), "Error", JOptionPane.ERROR_MESSAGE);
 			}
-			this.dispose();
 		} else {
 			JOptionPane.showMessageDialog(null, "Please type in an amount", "Error", JOptionPane.ERROR_MESSAGE);
 		}

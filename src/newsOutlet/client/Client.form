@@ -34,13 +34,16 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="2d5fe" class="javax.swing.JTextArea" binding="articleViewer">
+              <component id="2d5fe" class="javax.swing.JTextArea" binding="articleViewer" custom-create="true">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="50"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <editable value="false"/>
+                  <lineWrap value="true"/>
+                </properties>
               </component>
             </children>
           </grid>
