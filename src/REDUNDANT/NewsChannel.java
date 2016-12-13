@@ -1,4 +1,6 @@
-package newsOutlet.newsChannel;
+package REDUNDANT;
+
+import newsOutlet.newsChannel.Article;
 
 import java.io.Serializable;
 import java.util.ArrayList;

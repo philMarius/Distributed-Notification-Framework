@@ -14,18 +14,20 @@ import java.util.Scanner;
  */
 public class Server {
 	
-//	private NewsChannel newsChannel;
-	private NotificationSource source;
-	private Registry registry;
-	private String channelName;
+	private NotificationSource source; //NotificationSource that handles Notification sending
+	//	private Registry registry;
+	private String channelName; //Name of the server news channel
 	
+	/**
+	 * Creates new server with set name, then creates a new NotificationSource which handles the registry
+	 *
+	 * @param channelName Name of the server news channel
+	 */
 	public Server(String channelName) {
-//		this.newsChannel = new NewsChannel(channelName);
 		this.channelName = channelName;
 		
 		try {
 			source = new NotificationSource(channelName);
-//			registry = LocateRegistry.createRegistry(1099);
 			System.out.println("Creating new news channel: " + channelName);
 			System.out.println("Server ready");
 			while (true) {
@@ -36,16 +38,20 @@ public class Server {
 		}
 	}
 	
+	/**
+	 * Adds article to the server, queries the server administrator as to what title, author and body the article should
+	 * have in turn and then sends it with the current date and the server news channel name.
+	 */
 	public void addArticle() {
 		Scanner s = new Scanner(System.in);
 		
-		System.out.println("Article Title:");
+		System.out.println("[SVR] Article Title:");
 		String title = s.nextLine();
 		
-		System.out.println("Article Author:");
+		System.out.println("[SVR] Article Author:");
 		String author = s.nextLine();
 		
-		System.out.println("Article Body:");
+		System.out.println("[SVR] Article Body:");
 		String body = s.nextLine();
 		
 		Date now = new Date();
@@ -57,12 +63,17 @@ public class Server {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-
-//		newsChannel.addArticle(newArticle);
 	}
 	
+	/**
+	 * Main class to start the server, queries the server administrator as to what news channel the server should be
+	 *
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		String serverName = args[0];
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Enter News Channel name:");
+		String serverName = scan.nextLine();
 		
 		Server s = new Server(serverName);
 	}

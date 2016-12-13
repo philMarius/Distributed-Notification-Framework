@@ -62,9 +62,11 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="cb6a0" class="javax.swing.JTable" binding="articleList" custom-create="true">
+                  <component id="cb6a0" class="javax.swing.JTable" binding="articleTable" custom-create="true">
                     <constraints/>
-                    <properties/>
+                    <properties>
+                      <enabled value="true"/>
+                    </properties>
                   </component>
                 </children>
               </scrollpane>
@@ -94,6 +96,12 @@
             <constraints/>
             <properties>
               <text value="Leave Channel"/>
+            </properties>
+          </component>
+          <component id="ab316" class="javax.swing.JButton" binding="connectedChannelsButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <text value="Connected Channels"/>
             </properties>
           </component>
         </children>

@@ -1,19 +1,19 @@
 package newsOutlet.client;
 
 import newsOutlet.newsChannel.Article;
-import newsOutlet.newsChannel.NewsChannel;
 import newsOutlet.notification.Notifiable;
 import newsOutlet.notification.NotificationSink;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.Date;
-import java.util.Objects;
+import java.util.ArrayList;
 
 /**
  * Created by Philip on 08/12/2016.
@@ -30,24 +30,28 @@ public class Client extends JFrame implements Notifiable {
 	private JLabel articleName;
 	private JButton addChannelButton;
 	private JButton addArticleToBBCButton;
-	private JTable articleList;
+	private JTable articleTable;
 	private JScrollPane articleListSrollPane;
+	private JButton connectedChannelsButton;
 	private NotificationSink notificationSink;
 	private DefaultTableModel dtm;
+	private ArrayList<Article> articleList;
 	
 	public Client() throws HeadlessException {
 		super("Client Chat Window");
 		
 		Login l = new Login(this);
 		
-//		addChannelButton.addActionListener(e -> Client.this.addChannel(new NewsChannel("BBC")));
-		
-//		addArticleToBBCButton.addActionListener(e -> Client.this.addArticle(new Article("Me", "Preview Title", "This is some nice body", new Date()), new NewsChannel("BBC")));
-		
 		this.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				Client.this.exitClient();
+			}
+		});
+		connectedChannelsButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 	}
@@ -57,6 +61,7 @@ public class Client extends JFrame implements Notifiable {
 		this.pack();
 		this.setVisible(true);
 		System.out.println(userID);
+		this.articleList = new ArrayList<>();
 		
 		try {
 			notificationSink = new NotificationSink(this);
@@ -72,36 +77,7 @@ public class Client extends JFrame implements Notifiable {
 	public void connectToChannel(String channelName) throws RemoteException, MalformedURLException, NotBoundException {
 		notificationSink.subscribe(channelName);
 	}
-	
-//	public void addChannel(NewsChannel newsChannel) {
-//		JPanel newTabPanel = new JPanel(new GridLayout(0, 1));
-//		newTabPanel.setBackground(Color.red);
-//
-//		channelTabs.addTab(newsChannel.getName(), newTabPanel);
-//	}
-	
-	public void addArticle(Article article, NewsChannel newsChannel) {
-//		int index = this.getTab(newsChannel.getName());
-//		if (index == -1) {
-//			System.out.println("This tab doesn't exist");
-//		} else {
-//			System.out.println("Adding article to tab");
-//			JPanel tabPanel = (JPanel) this.channelTabs.getComponentAt(this.getTab(newsChannel.getName()));
-//			tabPanel.add(new ArticleLink(article, this));
-//		}
-		
-		
-	}
-	
-//	public int getTab(String tabName) {
-//		int channelCount = this.channelTabs.getTabCount();
-//		for (int i = 0; i < channelCount; i++) {
-//			if (Objects.equals(this.channelTabs.getTitleAt(i), tabName)) {
-//				return i;
-//			}
-//		}
-//		return -1;
-//	}
+
 	
 	public void exitClient() {
 		System.out.println("[CLI] Exiting client");
@@ -113,8 +89,13 @@ public class Client extends JFrame implements Notifiable {
 		System.exit(0);
 	}
 	
+	public void displayArticle(Article article) {
+		
+	}
+	
 	@Override
 	public void receiveNotification(Article article) {
+		this.articleList.add(article);
 		this.dtm.addRow(new Object[] {article.getChannel(), article.getTitle(), article.getAuthor(), article.getDate().toString()});
 		System.out.println("[CLI] New Article received!");
 		System.out.println(article.getTitle());
@@ -122,10 +103,29 @@ public class Client extends JFrame implements Notifiable {
 	
 	private void createUIComponents() {
 		//Custom creation of JTable for client article list
-		this.articleList = new JTable();
+		this.articleTable = new JTable();
+		this.articleTable.setCellSelectionEnabled(true);
+		this.articleTable.getTableHeader().setReorderingAllowed(false);
+		this.articleTable.setColumnSelectionAllowed(false);
+		
 		String header[] = new String[] {"News Channel", "Title", "Author", "Date"};
-		dtm = new DefaultTableModel();
+		
+		dtm = new DefaultTableModel() {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		
 		dtm.setColumnIdentifiers(header);
-		this.articleList.setModel(dtm);
+		this.articleTable.setModel(dtm);
+		
+		this.articleTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				System.out.println(Client.this.articleList.get(Client.this.articleTable.getSelectedRow()));
+			}
+		});
+		
 	}
 }

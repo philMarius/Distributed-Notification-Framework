@@ -1,9 +1,5 @@
 package scripts;
 
-import com.sun.org.apache.regexp.internal.RE;
-import newsOutlet.newsChannel.NewsChannel;
-import newsOutlet.notification.Notification;
-
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 

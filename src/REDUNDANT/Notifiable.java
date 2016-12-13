@@ -1,7 +1,5 @@
 package REDUNDANT;
 
-import newsOutlet.newsChannel.NewsChannel;
-
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 

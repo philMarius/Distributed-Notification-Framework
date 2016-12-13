@@ -1,15 +1,10 @@
 package scripts;
 
-import newsOutlet.newsChannel.Article;
-import newsOutlet.newsChannel.NewsChannel;
-import newsOutlet.notification.Notification;
+import REDUNDANT.NewsChannel;
 
-import java.net.MalformedURLException;
-import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.Date;
 
 /**
  * Created by Philip on 09/12/2016.
