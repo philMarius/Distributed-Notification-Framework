@@ -1,5 +1,3 @@
-package newsOutlet.newsChannel;
-
 import java.util.Date;
 
 /**

@@ -1,8 +1,7 @@
 package REDUNDANT;
 
-import newsOutlet.newsChannel.Article;
+import Article;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**

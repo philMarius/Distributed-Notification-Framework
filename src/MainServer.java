@@ -1,5 +1,3 @@
-package newsOutlet.server;
-
 /**
  * Created by Philip on 09/12/2016.
  */

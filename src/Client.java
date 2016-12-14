@@ -1,13 +1,4 @@
-package newsOutlet.client;
-
-import jdk.nashorn.internal.scripts.JO;
-import newsOutlet.newsChannel.Article;
-import newsOutlet.notification.Notifiable;
-import newsOutlet.notification.NotificationSink;
-
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
@@ -50,12 +41,7 @@ public class Client extends JFrame implements Notifiable {
 				Client.this.exitClient();
 			}
 		});
-		connectedChannelsButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
+		
 		connectedChannelsButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

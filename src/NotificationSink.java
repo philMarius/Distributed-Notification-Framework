@@ -1,6 +1,3 @@
-package newsOutlet.notification;
-
-import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -34,7 +31,7 @@ public class NotificationSink extends UnicastRemoteObject implements Sinkable {
 	@Override
 	public void updateNews(Notification notification) {
 		System.out.println("[SNK] Update received");
-		notifiable.receiveNotification(notification.getArticle());
+		notifiable.receiveNotification((Article) notification.getObject());
 	}
 	
 	/**

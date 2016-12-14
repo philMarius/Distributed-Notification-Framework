@@ -1,7 +1,3 @@
-package newsOutlet.notification;
-
-import newsOutlet.newsChannel.Article;
-
 /**
  * Created by Philip on 12/12/2016.
  */

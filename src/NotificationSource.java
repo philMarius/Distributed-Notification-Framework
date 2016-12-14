@@ -1,5 +1,3 @@
-package newsOutlet.notification;
-
 import java.net.MalformedURLException;
 import java.rmi.ConnectException;
 import java.rmi.Naming;
@@ -19,7 +17,7 @@ public class NotificationSource extends UnicastRemoteObject implements Sourcable
 	private Map<Sinkable, Queue<Notification>> sinkNotificationQueue;
 	
 	/**
-	 * Take the source name, i.e. server name
+	 * Take the source name, i.e. server name and create the NotificationSource from it
 	 *
 	 * @param sourceName server name
 	 * @throws RemoteException
@@ -69,7 +67,8 @@ public class NotificationSource extends UnicastRemoteObject implements Sourcable
 			try {
 				s.updateNews(notification);
 			} catch (ConnectException e) {
-				System.out.println("[SRC] Client: " + s.getName() + " unable to be found, adding notification to queue");
+				System.err.println("[SRC] Sink Unavailable, creating queue of messages for sink!");
+				System.out.println("[SRC] Client: unable to be found, adding notification to queue");
 				Queue<Notification> sinkQueue = sinkNotificationQueue.get(s);
 				sinkQueue.add(notification);
 				sinkNotificationQueue.put(s, sinkQueue);
@@ -83,9 +82,13 @@ public class NotificationSource extends UnicastRemoteObject implements Sourcable
 	}
 	
 	public void listSinks() throws RemoteException {
-		System.out.println("[SRC] Sinks registered:");
 		for (Sinkable s : sinkSet) {
-			System.out.println("[SRC] :: " + s.getName());
+			try {
+				System.out.println("[SRC] Sinks registered:");
+				System.out.println("[SRC] :: " + s.getName());
+			} catch (ConnectException e) {
+			System.err.println("[SRC] Sink unavailable!");
+		}
 		}
 	}
 	

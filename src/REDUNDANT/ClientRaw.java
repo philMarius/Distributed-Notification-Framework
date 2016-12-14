@@ -1,4 +1,4 @@
-package newsOutlet.client;
+package REDUNDANT;
 
 import javax.swing.*;
 import java.awt.*;
