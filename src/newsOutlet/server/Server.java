@@ -95,6 +95,12 @@ public class Server {
 					e.printStackTrace();
 				}
 				break;
+			case "/exit":
+				System.out.println("[SRV] Quitting server");
+				System.out.println("[SRV] Wiping stored data");
+				System.out.println("[SRV] Shutting down source");
+				System.exit(0);
+				break;
 			default:
 				System.out.println("[SVR] Unrecognised command");
 		}
