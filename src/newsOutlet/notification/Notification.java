@@ -9,13 +9,13 @@ import java.io.Serializable;
  */
 public class Notification implements Serializable {
 	
-	private Article article;
+	private Object object;
 	
-	public Notification(Article article) {
-		this.article = article;
+	public Notification(Object object) {
+		this.object = object;
 	}
 	
-	public Article getArticle() {
-		return article;
+	public Object getObject() {
+		return object;
 	}
 }
