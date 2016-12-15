@@ -1,5 +1,3 @@
-package newsOutlet.client;
-
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

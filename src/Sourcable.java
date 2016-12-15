@@ -1,5 +1,3 @@
-package newsOutlet.notification;
-
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 

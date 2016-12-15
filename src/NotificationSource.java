@@ -1,5 +1,3 @@
-package newsOutlet.notification;
-
 import java.net.MalformedURLException;
 import java.rmi.ConnectException;
 import java.rmi.Naming;

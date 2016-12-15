@@ -1,7 +1,3 @@
-package newsOutlet.notification;
-
-import newsOutlet.newsChannel.Article;
-
 import java.io.Serializable;
 
 /**

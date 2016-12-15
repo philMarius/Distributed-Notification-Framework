@@ -1,20 +1,14 @@
-package newsOutlet.client;
-
-import jdk.nashorn.internal.scripts.JO;
-import newsOutlet.newsChannel.Article;
-import newsOutlet.notification.Notifiable;
-import newsOutlet.notification.NotificationSink;
-
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.*;
+import java.util.ArrayList;
 
 /**
  * Created by Philip on 08/12/2016.

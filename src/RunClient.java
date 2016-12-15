@@ -1,5 +1,3 @@
-import newsOutlet.client.Client;
-
 /**
  * Created by Philip on 14/12/2016.
  */

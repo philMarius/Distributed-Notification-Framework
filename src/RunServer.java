@@ -1,5 +1,3 @@
-import newsOutlet.server.Server;
-
 import java.util.Scanner;
 
 /**

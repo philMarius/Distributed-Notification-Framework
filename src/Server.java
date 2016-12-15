@@ -1,12 +1,5 @@
-package newsOutlet.server;
-
-import newsOutlet.newsChannel.Article;
-import newsOutlet.notification.Notification;
-import newsOutlet.notification.NotificationSource;
-
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
-import java.rmi.registry.Registry;
 import java.util.Date;
 import java.util.Scanner;
 

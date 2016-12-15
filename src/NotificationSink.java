@@ -1,13 +1,11 @@
-package newsOutlet.notification;
-
-import newsOutlet.newsChannel.Article;
-
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Philip on 09/12/2016.

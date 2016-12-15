@@ -1,7 +1,3 @@
-package newsOutlet.client;
-
-import newsOutlet.newsChannel.Article;
-
 import javax.swing.*;
 import java.awt.*;
 
