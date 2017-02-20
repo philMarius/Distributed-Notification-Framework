@@ -6,7 +6,6 @@ import newsOutlet.notification.NotificationSource;
 
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
-import java.rmi.registry.Registry;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -95,22 +94,19 @@ public class Server {
 					e.printStackTrace();
 				}
 				break;
+			case "/exit":
+				System.out.println("[SRV] Exiting server");
+				System.exit(0);
+				break;
+			case "/help":
+				System.out.println("$ /list-sinks: list registered sinks on server");
+				System.out.println("$ /list-registers: list servers running on registers");
+				System.out.println("$ /exit: exit server");
+				System.out.println("$ /help: show list of available commands");
+				break;
 			default:
 				System.out.println("[SVR] Unrecognised command");
 		}
-	}
-	
-	/**
-	 * Main class to start the server, queries the server administrator as to what news channel the server should be
-	 *
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		Scanner scan = new Scanner(System.in);
-		System.out.println("Enter News Channel name:");
-		String serverName = scan.nextLine();
-		
-		Server s = new Server(serverName);
 	}
 }
 

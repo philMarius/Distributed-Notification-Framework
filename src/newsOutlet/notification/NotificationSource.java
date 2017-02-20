@@ -16,7 +16,7 @@ public class NotificationSource extends UnicastRemoteObject implements Sourcable
 	
 	private Set<Sinkable> sinkSet; //Set of sinks
 	private String sourceName; //Name of the server
-	private Map<Sinkable, Queue<Notification>> sinkNotificationQueue;
+	private Map<Sinkable, Queue<Notification>> sinkNotificationQueue; //Queue of notifications for each sink
 	
 	/**
 	 * Take the source name, i.e. server name
@@ -48,6 +48,12 @@ public class NotificationSource extends UnicastRemoteObject implements Sourcable
 		System.out.println("Source ready");
 	}
 	
+	/**
+	 * Registers sink to the set of sinks
+	 *
+	 * @param sink the sink to add
+	 * @throws RemoteException
+	 */
 	@Override
 	public void registerSink(Sinkable sink) throws RemoteException {
 		System.out.println("[SRC] Registering new sink");
@@ -55,6 +61,12 @@ public class NotificationSource extends UnicastRemoteObject implements Sourcable
 		System.out.println("[SRC] No. of sinks registered: " + sinkSet.size());
 	}
 	
+	/**
+	 * Removes sink from the set of registered sinks
+	 *
+	 * @param sink sink to remove
+	 * @throws RemoteException
+	 */
 	@Override
 	public void deregisterSink(Sinkable sink) throws RemoteException {
 		System.out.println("[SRC] Deregistering sink");
@@ -62,6 +74,14 @@ public class NotificationSource extends UnicastRemoteObject implements Sourcable
 		System.out.println("[SRC] No. sinks registered: " + sinkSet.size());
 	}
 	
+	/**
+	 * Broadcast a notification to all the sinks in the set of registered sinks. Calls the updateNews method in the sink
+	 * and catches all sinks that aren't live any more and attempts to add the notification to a given queue of
+	 * notifications for each sink (this doesn't work correctly)
+	 *
+	 * @param notification notification to send
+	 * @throws RemoteException
+	 */
 	@Override
 	public void broadcastNotification(Notification notification) throws RemoteException {
 		System.out.println("[SRC] Broadcasting notification");
@@ -77,11 +97,22 @@ public class NotificationSource extends UnicastRemoteObject implements Sourcable
 		}
 	}
 	
+	/**
+	 * Gets name of the server this source is attached to
+	 *
+	 * @return name of the server as String
+	 * @throws RemoteException
+	 */
 	@Override
 	public String getName() throws RemoteException {
 		return sourceName;
 	}
 	
+	/**
+	 * Used in the functions method of the server. Lists the available, registered sinks in the set of sinks
+	 *
+	 * @throws RemoteException
+	 */
 	public void listSinks() throws RemoteException {
 		System.out.println("[SRC] Sinks registered:");
 		for (Sinkable s : sinkSet) {
@@ -89,6 +120,12 @@ public class NotificationSource extends UnicastRemoteObject implements Sourcable
 		}
 	}
 	
+	/**
+	 * Used in the functions method of the server. Lists the currently registered servers on the port
+	 *
+	 * @throws MalformedURLException
+	 * @throws RemoteException
+	 */
 	public void listRegistry() throws MalformedURLException, RemoteException {
 		for (String s : Naming.list("localhost")) {
 			System.out.println("[SRC] " + s);

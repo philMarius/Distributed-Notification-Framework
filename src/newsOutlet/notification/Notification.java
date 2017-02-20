@@ -1,7 +1,5 @@
 package newsOutlet.notification;
 
-import newsOutlet.newsChannel.Article;
-
 import java.io.Serializable;
 
 /**
@@ -9,12 +7,17 @@ import java.io.Serializable;
  */
 public class Notification implements Serializable {
 	
-	private Object object;
+	private Object object; //Object to send
 	
 	public Notification(Object object) {
 		this.object = object;
 	}
 	
+	/**
+	 * Getter of object
+	 *
+	 * @return the object being sent
+	 */
 	public Object getObject() {
 		return object;
 	}

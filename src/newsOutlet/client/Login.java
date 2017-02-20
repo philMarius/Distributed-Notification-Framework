@@ -14,6 +14,11 @@ public class Login extends JFrame {
 	private JButton enterButton;
 	private Client client;
 	
+	/**
+	 * Simple login window to get the user ID of the person signing in
+	 *
+	 * @param client
+	 */
 	public Login(Client client) {
 		super("Login Window");
 		this.setContentPane(this.content);
@@ -43,5 +48,7 @@ public class Login extends JFrame {
 	
 	private void createUIComponents() {
 		// TODO: place custom component creation code here
+		this.content = new JPanel();
 	}
+	
 }

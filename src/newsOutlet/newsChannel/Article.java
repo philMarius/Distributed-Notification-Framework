@@ -9,11 +9,11 @@ import java.util.Date;
  */
 public class Article implements Serializable {
 	
-	private String channel;
-	private String author;
-	private String title;
-	private String body;
-	private Date date;
+	private String channel; //Channel name
+	private String author; //Author name
+	private String title; //Title of article
+	private String body; //Body of article
+	private Date date; //Date of publish
 	
 	private ArrayList<Comment> commentSection;
 	

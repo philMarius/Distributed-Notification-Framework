@@ -7,5 +7,9 @@ import newsOutlet.newsChannel.Article;
  */
 public interface Notifiable {
 	
+	/**
+	 * receive notification from the invoker of this method
+	 * @param article to receive
+	 */
 	void receiveNotification(Article article);
 }

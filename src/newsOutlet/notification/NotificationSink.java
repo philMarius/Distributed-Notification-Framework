@@ -7,7 +7,9 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Philip on 09/12/2016.
@@ -98,18 +100,24 @@ public class NotificationSink extends UnicastRemoteObject implements Sinkable {
 	 */
 	@Override
 	public void unsubscribe(String channelName) throws RemoteException {
-		System.out.println("[SNK] Unsubscribing from: " + channelName);
-		
-		ArrayList<Sourcable> removedSinks = new ArrayList<>();
-		for (Sourcable s : sourceSet) {
-			if (s.getName().equals(channelName)) {
-				removedSinks.add(s);
-				s.deregisterSink(this);
+		if (this.sourceSet.isEmpty()) {
+			System.out.println("[SNK] No open connection to unsubscribe from");
+		} else {
+			System.out.println("[SNK] Unsubscribing from: " + channelName);
+			
+			ArrayList<Sourcable> removedSinks = new ArrayList<>();
+			for (Sourcable s : sourceSet) {
+				if (s.getName().equals(channelName)) {
+					removedSinks.add(s);
+					s.deregisterSink(this);
+					System.out.println("[SNK] Disconnection Successful");
+				}
 			}
-		}
-		
-		for (Sourcable s : removedSinks) {
-			sourceSet.remove(s);
+			
+			for (Sourcable s : removedSinks) {
+				sourceSet.remove(s);
+				System.out.println("[SNK] Channel removed from channel list");
+			}
 		}
 	}
 	

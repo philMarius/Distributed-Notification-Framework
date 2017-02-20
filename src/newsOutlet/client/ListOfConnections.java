@@ -8,10 +8,10 @@ import java.awt.*;
  */
 public class ListOfConnections extends JFrame {
 	
-	private JList<String> listOfConnections;
-	private JPanel content;
-	private JScrollPane channelScrollPane;
-	private String[] sources;
+	private JList<String> listOfConnections; //List of open connections for client
+	private JPanel content; //content pane
+	private JScrollPane channelScrollPane; //scrollpane for JList
+	private String[] sources; //NotificationSource names
 	
 	public ListOfConnections(String[] sources) throws HeadlessException {
 		super("List of Connections");
@@ -26,10 +26,7 @@ public class ListOfConnections extends JFrame {
 	
 	private void createUIComponents() {
 		this.listOfConnections = new JList<>(this.sources);
-//		this.listOfConnections.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//		this.listOfConnections.setLayoutOrientation(JList.VERTICAL);
-//		this.listOfConnections.setVisibleRowCount(-1);
-
 		this.channelScrollPane = new JScrollPane(this.listOfConnections);
 	}
+	
 }
